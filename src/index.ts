@@ -5,7 +5,8 @@ yarn add nodemon -D
 yarn add typescript ts-node @types/express @types/node -D
 yarn tsc --init
 
-Добавляем скрипт: "build": "tsc"
+Добавляем скрипт для сборки билда: "build": "tsc"
+Добавляем скрипт для запуска билда: "start": "node dist/index.js"
 */
 import express, {Request, Response} from 'express';
 
