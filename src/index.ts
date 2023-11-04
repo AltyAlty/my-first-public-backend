@@ -11,7 +11,8 @@ yarn tsc --init
 import express, {Request, Response} from 'express';
 
 const app = express();
-const port = 3000;
+/*Делаем так, чтобы порт определялся автоматически от окружения.*/
+const port = process.env.PORT || 5000;
 
 app.get('/', (req: Request, res: Response) => {
     let message = 'Hi';
