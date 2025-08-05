@@ -62,6 +62,6 @@ const app = express();
 /*Конфигурируем GET-запрос.*/
 app.get('/', (req: Request, res: Response) => { res.send('Hello!')});
 /*Экспортируем приложение для Vercel.*/
-export default async (req: Request, res: Response) => {
+export default async (req: any, res: any) => {
     app(req, res);
 };
