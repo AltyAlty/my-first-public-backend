@@ -1,59 +1,27 @@
 /*
 Установка yarn: npm install --global yarn
-
 Инициализация файла "package.json" (можно добавить флаг "--yes", чтобы не отвечать на вопросы): yarn init
-
 Установка Express: yarn add express
-
 Установка nodemon: yarn add nodemon -D
-
 Установка Typescript, ts-node, типов для Express, типов для Node.js:
 yarn add typescript ts-node @types/express @types/node -D
-
 Инициализация файла "tsconfig.json": yarn tsc --init
-
-Настройка файла "tsconfig.json":
-в разделе "outDir" указать папку для скомпилированных файлов и после раздела "compilerOptions" добавить раздел "include"
-Создание скриптов для запуска автоматической компиляции всего приложения в .js, запуска приложения локально через
-nodemon с возможностью отладки, компиляции всего приложения в .js, запуска приложения через Node.js и специальный скрипт
-для Vercel:
-в файл "package.json" перед разделом "dependencies" добавить:
-"scripts": {
+Настройка файла "package.json":
+  "type": "module",
+  "scripts": {
     "watch": "tsc -w",
-    "dev": "nodemon .\\dist\\src\\index.js",
+    "dev": "nodemon --inspect .\\dist\\index.js",
+    "test": "jest",
     "build": "tsc",
     "start": "node dist/index.js",
     "vercel-build": "yarn build"
-}
-
-Указание версии Node.js для Vercel в файле "package.json":
-в конце добавить:
-"engines": {
-    "node": "18.x"
+  },
+  "engines": {
+    "node": ">=18"
   }
-
-Настройка файла "package.json":
-перед разделом "scripts" добавить: "type": "module"
-
-Создание файла "vercel.json":
-{
-  "version": 2,
-  "builds": [
-    {
-      "src": "src/index.ts",
-      "use": "@vercel/node",
-      "config": { "includeFiles": ["dist/**"] }
-    }
-  ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "src/index.ts"
-    }
-  ]
-}
-
-Экспортирование приложения для Vercel: в конце добавить "module.exports = app;"
+Настройка файла "tsconfig.json": смотри сам файл
+Создание файла "vercel.json": смотри сам файл
+Экспортирование приложения для Vercel: в конце добавить "export default app;"
 
 
 Запуск приложения:
@@ -96,4 +64,4 @@ const app = express();
 app.get('/', (req: Request, res: Response) => { res.send('Hello!')});
 
 /*Экспортируем приложение для Vercel.*/
-module.exports = app;
+export default app;
