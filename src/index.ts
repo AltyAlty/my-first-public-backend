@@ -84,7 +84,7 @@ nodemon с возможностью отладки, компиляции все�
 Указать Install Command как "yarn install"
 
 
-Это простой HTTP-сервер на Express, который развернут на сайте vercel.com (lesson 011).
+Это простой HTTP-сервер на Express, который развернут на сайте www.vercel.com (lesson 011).
 */
 
 /*Импортируем express для создания HTTP-сервера. Импортируем Request и Response из Express для типизации.*/
@@ -92,14 +92,9 @@ import express, {Request, Response} from 'express';
 
 /*Создаем приложение на Express.*/
 const app = express();
-/*Делаем так, чтобы порт определялся автоматически от окружения.*/
-const port = process.env.PORT || 5000;
 
 /*Конфигурируем GET-запрос.*/
 app.get('/', (req: Request, res: Response) => { res.send('Hello!')});
 
-/*Устанавливаем порт для прослушивания, но Vercel сам это сделает.*/
-// app.listen(port, () => { console.log(`app listening on port ${port}`)});
-
 /*Экспортируем приложение для Vercel.*/
-export default app;
+export default async (req: Request, res: Response) => { app(req, res)};
