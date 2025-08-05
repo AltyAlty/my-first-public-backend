@@ -62,9 +62,11 @@ nodemon с возможностью отладки, компиляции все�
 Залогиниться на vercel.com
 Перейти на Dashboard
 Выбрать Add New... - Project
-Выбрать Continue with GItHub
+Выбрать Continue with GitHub
 Импортировать нужный репозиторий
-Указать Root Directory как "src"
+Указать Build Command как "npm run build"
+Указать Output Directory как "dist"
+Указать Install Command как "yarn install"
 
 Это простой HTTP-сервер на Express, который развернут на сайте vercel.com (lesson 011).
 */
