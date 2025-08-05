@@ -57,11 +57,11 @@ yarn add typescript ts-node @types/express @types/node -D
 
 /*Импортируем express для создания HTTP-сервера. Импортируем Request и Response из Express для типизации.*/
 import express, {Request, Response} from 'express';
-
 /*Создаем приложение на Express.*/
 const app = express();
 /*Конфигурируем GET-запрос.*/
 app.get('/', (req: Request, res: Response) => { res.send('Hello!')});
-
 /*Экспортируем приложение для Vercel.*/
-export default app;
+export default async (req: Request, res: Response) => {
+    app(req, res);
+};
