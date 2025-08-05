@@ -1,28 +1,14 @@
 /*
 Установка yarn: npm install --global yarn
-Инициализация файла "package.json" (можно добавить флаг "--yes", чтобы не отвечать на вопросы): yarn init
+Инициализация файла "package.json": yarn init
 Установка Express: yarn add express
 Установка nodemon: yarn add nodemon -D
 Установка Typescript, ts-node, типов для Express, типов для Node.js:
 yarn add typescript ts-node @types/express @types/node -D
 Инициализация файла "tsconfig.json": yarn tsc --init
-Настройка файла "package.json":
-  "type": "module",
-  "scripts": {
-    "watch": "tsc -w",
-    "dev": "nodemon --inspect .\\dist\\index.js",
-    "test": "jest",
-    "build": "tsc",
-    "start": "node dist/index.js",
-    "vercel-build": "yarn build"
-  },
-  "engines": {
-    "node": ">=18"
-  }
-Настройка файла "tsconfig.json": смотри сам файл
-Создание файла "vercel.json": смотри сам файл
-Экспортирование приложения для Vercel: в конце добавить "export default app;"
-
+Настройка файла "package.json" под vercel.com: смотри сам файл
+Настройка файла "tsconfig.json" под vercel.com: смотри сам файл
+Создание файла "vercel.json" под vercel.com: смотри сам файл
 
 Запуск приложения:
 0.
@@ -40,28 +26,35 @@ yarn add typescript ts-node @types/express @types/node -D
 Запуск приложения через Node.js: node dist/index.js
 Запуск приложения через Node.js (скрипт): yarn start
 
-
 Разворачивание приложения на vercel.com:
 Залогиниться на vercel.com
 Перейти на Dashboard
-Выбрать Add New... - Project
-Выбрать Continue with GitHub
+Выбрать "Add New..." - "Project"
+Выбрать "Continue with GitHub"
 Импортировать нужный репозиторий
-Указать Build Command как "yarn vercel-build"
-Указать Output Directory как "dist"
-Указать Install Command как "yarn install"
+Указать "Build Command" как "yarn vercel-build"
+Указать "Output Directory" как "dist"
+Указать "Install Command" как "yarn install"
 
-
-Это простой HTTP-сервер на Express, который развернут на сайте www.vercel.com (lesson 011).
+Это простой HTTP-сервер на Express, который развернут на сайте vercel.com (lesson 011).
 */
 
-/*Импортируем express для создания HTTP-сервера. Импортируем Request и Response из Express для типизации.*/
-import express, {Request, Response} from 'express';
+/*Импортируем express для создания HTTP-сервера.*/
+import express from 'express';
+/*Импортируем Request и Response из Express для типизации.*/
+import type {Request, Response} from 'express';
+
+/*Делаем так, чтобы порт определялся автоматически от окружения. При развертывании на vercel.com этого не требуется.*/
+// const port = process.env.PORT || 8008;
+
 /*Создаем приложение на Express.*/
 const app = express();
+
 /*Конфигурируем GET-запрос.*/
 app.get('/', (req: Request, res: Response) => { res.send('Hello!')});
-/*Экспортируем приложение для Vercel.*/
-export default async (req: any, res: any) => {
-    app(req, res);
-};
+
+/*Устанавливаем какой порт прослушивается. При развертывании на vercel.com этого не требуется.*/
+// app.listen(port, () => { console.log(`Example app listening on port ${port}`)});
+
+/*Экспортируем приложение для vercel.com.*/
+export default async (req: Request, res: Response) => { app(req, res)};
