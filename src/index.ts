@@ -1,11 +1,17 @@
 /*
 Установка yarn: npm install --global yarn
+
 Инициализация файла "package.json" (можно добавить флаг "--yes", чтобы не отвечать на вопросы): yarn init
+
 Установка Express: yarn add express
+
 Установка nodemon: yarn add nodemon -D
+
 Установка Typescript, ts-node, типов для Express, типов для Node.js:
 yarn add typescript ts-node @types/express @types/node -D
+
 Инициализация файла "tsconfig.json": yarn tsc --init
+
 Настройка файла "tsconfig.json":
 в разделе "outDir" указать папку для скомпилированных файлов и после раздела "compilerOptions" добавить раздел "include"
 Создание скриптов для запуска автоматической компиляции всего приложения в .js, запуска приложения локально через
@@ -18,28 +24,35 @@ nodemon с возможностью отладки, компиляции все�
     "build": "tsc",
     "start": "node dist/index.js",
     "vercel-build": "yarn build"
-},
-Указание версии Node.js для Vercel:
-в файл "package.json" в конце добавить:
+}
+
+Указание версии Node.js для Vercel в файле "package.json":
+в конце добавить:
 "engines": {
     "node": "18.x"
   }
+
+Настройка файла "package.json":
+перед разделом "scripts" добавить: "type": "module"
+
 Создание файла "vercel.json":
 {
   "version": 2,
   "builds": [
     {
-      "src": "dist/index.js",
-      "use": "@vercel/node"
+      "src": "src/index.ts",
+      "use": "@vercel/node",
+      "config": { "includeFiles": ["dist/**"] }
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "dist/index.js"
+      "dest": "src/index.ts"
     }
   ]
 }
+
 Экспортирование приложения для Vercel: в конце добавить "export default app;"
 
 
@@ -59,6 +72,7 @@ nodemon с возможностью отладки, компиляции все�
 Запуск приложения через Node.js: node dist/index.js
 Запуск приложения через Node.js (скрипт): yarn start
 
+
 Разворачивание приложения на vercel.com:
 Залогиниться на vercel.com
 Перейти на Dashboard
@@ -68,6 +82,7 @@ nodemon с возможностью отладки, компиляции все�
 Указать Build Command как "yarn vercel-build"
 Указать Output Directory как "dist"
 Указать Install Command как "yarn install"
+
 
 Это простой HTTP-сервер на Express, который развернут на сайте vercel.com (lesson 011).
 */
@@ -81,13 +96,10 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 /*Конфигурируем GET-запрос.*/
-app.get('/', (req: Request, res: Response) => {
-    let message = 'Hello';
-    res.send(message);
-});
+app.get('/', (req: Request, res: Response) => { res.send('Hello!')});
 
-/*Устанавливаем порт для прослушивания.*/
-app.listen(port, () => { console.log(`app listening on port ${port}`)});
+/*Устанавливаем порт для прослушивания, но Vercel сам это сделает.*/
+// app.listen(port, () => { console.log(`app listening on port ${port}`)});
 
 /*Экспортируем приложение для Vercel.*/
 export default app;

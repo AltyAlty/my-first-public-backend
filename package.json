@@ -5,6 +5,7 @@
   "repository": "https://github.com/AltyAlty/my-first-public-backend.git",
   "author": "Alty <heneveraskedforthis@gmail.com>",
   "license": "MIT",
+  "type": "module",
   "scripts": {
     "watch": "tsc -w",
     "dev": "nodemon --inspect .\\dist\\index.js",
